@@ -7,3 +7,4 @@
 **/.angular/
 **/coverage/
 "@ | Set-Content .gitignore
+**/.git-backup/

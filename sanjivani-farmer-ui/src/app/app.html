@@ -1,0 +1,75 @@
+<div class="chat-page">
+
+  <header class="chat-header">
+    <div class="brand-icon">🌱</div>
+    <div>
+      <h1>Sanjivani AI</h1>
+      <p>Farmer Records Assistant · Powered by MCP</p>
+    </div>
+  </header>
+
+  <main class="chat-container">
+
+    <section class="welcome">
+      <h2>Welcome to Sanjivani Sugar Factory!</h2>
+      <p>Ask questions about your farmer database.</p>
+    </section>
+
+    <section class="messages">
+
+      <div
+        *ngFor="let message of messages"
+        class="message-row"
+        [class.user-row]="message.role === 'user'"
+      >
+        <div
+          class="avatar"
+          *ngIf="message.role === 'assistant'"
+        >🌱</div>
+
+        <div
+          class="message"
+          [class.user-message]="message.role === 'user'"
+        >
+          <strong>
+            {{ message.role === 'user' ? 'You' : 'Sanjivani AI' }}
+          </strong>
+          <p>{{ message.content }}</p>
+        </div>
+      </div>
+
+      <div class="message-row" *ngIf="loading">
+        <div class="avatar">🌱</div>
+        <div class="message">
+          <strong>Sanjivani AI</strong>
+          <p>Checking farmer records... ⏳</p>
+        </div>
+      </div>
+
+    </section>
+
+    <form class="chat-input" (ngSubmit)="askQuestion()">
+
+      <input
+        type="text"
+        name="question"
+        [(ngModel)]="question"
+        placeholder="Ask about farmers, sugarcane, or payments..."
+        [disabled]="loading"
+        autocomplete="off"
+      />
+
+      <button
+        type="submit"
+        [disabled]="loading || !question.trim()"
+      >
+        {{ loading ? 'Thinking...' : 'Ask AI ↑' }}
+      </button>
+
+    </form>
+
+    <p class="footer-text">Powered by AI · MCP · PostgreSQL</p>
+
+  </main>
+
+</div>
